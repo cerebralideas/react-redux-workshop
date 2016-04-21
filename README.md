@@ -41,7 +41,7 @@ To start this workshop, you have two options:
 6. Also, make the child React component render the a `<span>` with inline CSS that makes the color of the text red.
 7. Finally, pull "World" out of the string and add it back as a JS variable by concatenating it with "Hello, " and "!".
 
-That's it! You're now done with Step One. [Here's the commit on Github](https://github.com/cerebralix/react-redux-workshop/commit/343d1abac5ae57acb03b7adbeceb8238c7af2a98).
+That's it! You're now done with Step One. [Here's the commit on Github](https://github.com/cerebralix/react-redux-workshop/commit/55c6a827e8119f1b551ac4f82450fd3d32b48b4a).
 
 
 ## Step Two:
@@ -127,7 +127,7 @@ this.setState({ name: event.target.querySelector('#name').value });
 ```
 16. Does it work? Keep trying and see if you can get it working. Don't forget to utilize the React documentation for the API. Don't just give up and look at the answer
 
-That's it! You're now done with Step Two. [Here's the commit on Github](https://github.com/cerebralix/react-redux-workshop/commit/ee345c686b1a24a7ad6392e86cc756bd49458c6a).
+That's it! You're now done with Step Two. [Here's the commit on Github](https://github.com/cerebralix/react-redux-workshop/commit/ed22006587b8b95117b49ad355b67f8a332355af).
 
 
 ## Step Three: Start organizing your code!
@@ -164,7 +164,7 @@ By now, you probably have a very large class that houses all of your app. Start 
 	<Form state={this.state} functionName={this.functionName} />
 	```
 
-Once you feel your code is organized and working, [check out how I did it here](https://github.com/cerebralix/react-redux-workshop/commit/25b7e887547cdcd31ac021976e384c7e68724275).
+Once you feel your code is organized and working, [check out how I did it here](https://github.com/cerebralix/react-redux-workshop/commit/60061265634b3382d09bccb428f2023a7cc58fb9).
 
 
 ## Step Four: Make your first todo app!
@@ -188,7 +188,7 @@ You now know enough to get started making your first todo app. Here are the requ
 	</ul>
 	```
 
-It may be hard, but really try to get this. If you're stuck, [check out how I do it here](https://github.com/cerebralix/react-redux-workshop/commit/af597f3baf9dd4eb6adb508e2286d3f3ff9c9a5b), but don't just plain old copy and paste.
+It may be hard, but really try to get this. If you're stuck, [check out how I do it here](https://github.com/cerebralix/react-redux-workshop/commit/ae58b9c9d8c6d12a38d56456d130508a44169f34), but don't just plain old copy and paste.
 
 
 ## Step Five: Introduce Redux!
@@ -248,6 +248,8 @@ Moving state out of the view is critical for separating of concerns of software 
 
 7. Now, get your app working again! Make sure you can add many todos and that the input clears itself after the submit.
 
+Once you done, [check out how I do it here](https://github.com/cerebralix/react-redux-workshop/commit/d845315d9a6e0e69cdc4bf2cdf61b30af5262317)
+
 
 ## Step Six: Add more complex data structures
 
@@ -305,5 +307,6 @@ Data is very rarely represented as an array of string, so let's make this more c
 
 8. Check your work. Does it allow you to add todos and complete and uncomplete them?
 
+Step Six's solution [here to check your work](https://github.com/cerebralix/react-redux-workshop/commit/c136496a98e46a3fcf937b39e90f6da1648d459c)
 
 ## Step Seven: coming soon ...
