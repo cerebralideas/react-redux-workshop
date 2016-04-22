@@ -444,10 +444,56 @@ Let's add TypeScript to give us a better development environment! First things f
 	}
 	```
 	
-12. Run `npm run webpack` in your terminal. This should produce a single file called `bundle.js`.
+12. Run `npm run bundle` in your terminal. This should produce a single file called `bundle.js`.
 
 13. Refresh your app in your browser and everything *should* work :)
 
 NOTE: You'll probably want to ignore all the built files with `.gitignore`.
 
-## Step Ten: coming soon ...
+## Step Ten: Let's organize again
+
+Let's organize and atomize our app's components. This will help prevent our root directory from exploding with files. Here's the naming of our directories:
+
+- views
+- initiators
+- store
+- reducers
+- styles
+
+## Step Eleven: Defining an interface
+
+Now that we have TypeScript, let's use one of its most powerful features: interfaces and typings.
+
+1. Let's define what the interface is for our state and actions, and what our reducer returns within our store.js file. If you are unfamiliar with how to do this, reference the TypeScript docs, but here's a shell you can start with:
+
+	```
+	interface Todo {
+		/* describe the shape of your todo item */
+	}
+	interface State {
+		/* describe the shape of your todo item */
+	}
+	interface Actions {
+		/* describe the possible shape of actions */
+		/* this will likely have optional params since it should describe all possible actions */
+		example?: string; // the question mark denotes optional
+	}
+	```
+
+2. Now, within your reducer function, assign the correct types to the function parameters, using the colon syntax, and for the return object:
+
+	```
+	function myFunc(paramOne: InterfaceOne, paramTwo: InterfaceTwo): InterfaceForReturn {};
+	```
+	
+3. If you haven't already done it, make sure your actual state object looks like this: `{ todos: [] }`. If it's just returning an array, change this now. Don't forget to update your `mapStateToProps` method if you changed the store.
+
+4. You are more than likely going to encounter errors from TypeScript, you have to really think about what the errors are telling you. Most likely, it's when TypeScript tries to infer a type, and get's it wrong. Array.concat() is going to be one of those. So, make sure to pass in similar types into `concat` and not mixed types.
+
+## Step Twelve: Let's decouple events from our view
+
+We want our views to be as simple as possible. With the sole responsibility of rendering to the page with given data. 
+
+1. Our next step in doing this is pulling the event methods out of the app.tsx, and into a separate module called `client-events.ts`.
+2. Now, rather than continuously pass ... coming soon ...
+

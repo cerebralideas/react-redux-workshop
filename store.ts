@@ -1,31 +1,53 @@
 import * as Redux from 'redux';
 
-let reduxStore;
+interface Todo {
+	id: number;
+	title: string;
+	completed: boolean;
+}
+interface State {
+	todos: Todo[];
+}
+interface Action {
+	type: string,
+	id?: number,
+	title?: string,
+	completed?: boolean
+}
 
-function todoReducer(state, action) {
-	state = state || [{ id: 0, title: 'Learn React Basics', completed: false }];
+let reduxStore,
+	initialState = {
+		todos: [
+			{ id: 0, title: 'Learn React Basics', completed: false }
+		]
+	};
+
+function todoReducer(state: State, action: Action): State {
 	switch (action.type) {
 		case 'ADD_TODO':
-			return state.concat({ id: state.length, title: action.title, completed: false });
+			return {
+				todos: state.todos.concat({ id: state.todos.length, title: action.title, completed: false })
+			};
 		case 'COMPLETE_TODO':
-			function completeTodo() {
-				var startArray = state.slice(0, action.id),
-					todo = state[action.id],
-					endArray = state.slice(parseInt(action.id, 10) + 1, state.length);
+			let completeTodo = function completeTodo(): State {
+				var startArray = state.todos.slice(0, action.id),
+					todo = state.todos[action.id],
+					endArray = state.todos.slice(action.id + 1, state.todos.length);
 
-				return [].concat(
-					startArray,
-					{ id: todo.id, title: todo.title, completed: action.completed },
-					endArray
-				);
-			}
+				return {
+					todos: startArray.concat(
+							[{ id: todo.id, title: todo.title, completed: action.completed }],
+							endArray
+						)
+				}
+			};
 			return completeTodo();
 		default:
 			return state;
 	}
 }
 
-reduxStore = Redux.createStore(todoReducer);
+reduxStore = Redux.createStore(todoReducer, initialState);
 reduxStore.subscribe(
 	function logStore() {
 		console.log(reduxStore.getState());

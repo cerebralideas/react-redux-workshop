@@ -2,14 +2,12 @@ import { connect } from 'react-redux';
 import { TodoForm, TodoList } from './presentational';
 
 function mapStateToProps_todoList(state) {
-	return {
-		todos: state
-	}
+	return state;
 }
 function mapDispatchToProps_todoList(dispatch) {
 	return {
 		completeTodo: function completeTodo(event) {
-			dispatch({ type: 'COMPLETE_TODO', id: event.target.id, completed: event.target.checked });
+			dispatch({ type: 'COMPLETE_TODO', id: parseInt(event.target.id, 10), completed: event.target.checked });
 		}
 	}
 }
