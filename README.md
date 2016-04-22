@@ -309,4 +309,145 @@ Data is very rarely represented as an array of string, so let's make this more c
 
 Step Six's solution [here to check your work](https://github.com/cerebralix/react-redux-workshop/commit/c136496a98e46a3fcf937b39e90f6da1648d459c)
 
-## Step Seven: coming soon ...
+## Step Seven: Introduce ReactRedux
+
+Rather than managing the two states of our app, Redux store and React's this.state, let's have something connect the two entities together for us!
+
+So that I don't have to explain the inner workings of ReactRedux, please [watch these amazing tutorials with Dan Abromov on Egghead.io](https://egghead.io/series/getting-started-with-redux).
+ 
+The basic components to know are:
+
+- Provider
+- connect
+- mapping state to props
+- mapping dispatch to props
+ 
+1. Ensure that you're pulling in ReactRedux via the `<script>` tag on the index.html page.
+
+2. What we want to do is pull state and event related functions out of our view and delegate that to our ReactRedux library.
+
+3. Within you main jsx file, pull your state related functions out and place them in a function called "mapStateToProps". This is what it should look like:
+
+	```
+	function mapStateToProps(state) {
+		return { /* your state object */ };
+	}
+	```
+
+4. Now, pull you event listener functions out of your React component and place them in a function called "mapDispatchToProps". Like this:
+
+	```
+	function mapDispatchToProps(dispatch) {
+		return { /* your event methods object */ };
+	}
+	```
+	
+5. Using ReactRedux, call the `connect` method passing in the two map functions as arguments. Then, using partial application, call it again, but now with your root React component as the only argument, making sure your save what it returns to a variable:
+
+	```
+	var ConnectedApp = ReactRedux.connect(
+			mapStateToProps,
+			mapDispatchToProps
+		)(/* Root React Component */);
+	```
+	
+6. The above returns a connected app that will now listen for state changes for you, so there's no longer a need for the React.createClass and the `this.setState` or `getInitialState` methods. Let's now write our React components as stateless, pure functions.
+
+7. Finally, wrap your new `ConnectedApp` component with `ReactRedux.Provider` and pass the Redux store you created earlier into a attribute called store:
+ 
+	```
+	ReactDOM.render(
+		<ReactRedux.Provider store={ /* Your Redux store reference */ }>
+			<ConnectedApp />
+		</ReactRedux.Provider>,
+		document.getElementById('root)
+	);
+	```
+
+8. Clean up your code and see test. Remember, we want all our React views to be stateless, pure functions. Let the libraries do the work for us.
+
+## Step Eight: Let's organize our application better.
+
+How can we break this up into functional pieces? What about the classic MVC? Or, how about components, containers and store? Or ... how would you split these into different files? This is a do-your-own-thing exercise.
+
+## Step Nine: Add TypeScript
+
+Let's add TypeScript to give us a better development environment! First things first:
+
+1. Install the needed things: TypeScript and Webpack. The former will transpile our code, among other things, and the latter will build our bundle for the browser.
+
+	```
+	npm install typescript webpack --save-dev
+	```
+	
+2. Now that we have TypeScript, we'll need the type definitions for our libraries. To do this, the best way is to do a `git clone` on [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped). After this installs, you'll have almost every major libary and framework definition you'll ever need :)
+
+3. Copy and paste the following directories to a directory called `typings` or `definitions` in your project from the DefinitelyTyped project:
+ 
+ 	- react
+ 	- react-redux
+ 	- redux
+ 	
+4. You'll now need a way to reference this definitions. So, at the root of your application, create a new file called `typings.d.ts` or whatever, and reference each library definition with the appropriate syntax:
+
+	```
+	/// <reference path="react.d.ts" />
+	/// <reference path="react-dom.d.ts" />
+	/* So on and so forth */
+	```
+ 	
+5. Now install the libraries:
+
+	```
+	npm install react react-dom react-redux redux --save
+	```
+	
+6. You can now switch all your files to `.ts` or `.tsx` extensions (similar to `.js` or `.jsx`) and ES6 modules. Don't change too much of your code, but just embrace the new module definition. A part of this will be removing all the references to the global window object for your library methods. You'll get them by pulling them in now.
+
+7. Delete all the `<script>` tags in your `index.html` except one, and call that `bundle.js`.
+
+8. After you've switched them all over and removed the unneeded script tags, you are almost ready to do the first step in your build. Create a `tsconfig.json` file for your TypeScript configuration:
+ 
+	```
+	{
+		"compilerOptions": {
+			"target": "es5",
+			"module": "commonjs",
+			"moduleResolution": "node",
+			"jsx": "react",
+			"noImplicitAny": false,
+			"sourceMap": true
+		},
+		"exclude": [
+			"node_modules",
+			"typings"
+		]
+	}
+	```
+
+9. Now you need an NPM command to run it. In your `package.json` add a script to run called "transpile":
+
+	```
+	"scripts": {
+		"transpile": "tsc"
+	}
+	```
+	
+10. Type `npm run transpile` in your terminal. This should build your files without error. If you get an error, ask you instructor for help. Or, use the Googles :)
+
+11. Last but not least, we need to bundle our files into something the browser can execute. So, add another script to the `package.json` to run a bundle method using Webpack:
+
+	```
+	"scripts": {
+		"transpile": "tsc"
+		"bundle": "webpack ./app.tsx bundle.js"
+	}
+	```
+	
+12. Run `npm run webpack` in your terminal. This should produce a single file called `bundle.js`.
+
+13. Refresh your app in your browser and everything *should* work :)
+
+NOTE: You'll probably want to ignore all the built files with `.gitignore`.
+
+## Step Ten: coming soon ...

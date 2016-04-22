@@ -1,3 +1,7 @@
+import * as Redux from 'redux';
+
+let reduxStore;
+
 function todoReducer(state, action) {
 	state = state || [{ id: 0, title: 'Learn React Basics', completed: false }];
 	switch (action.type) {
@@ -21,9 +25,11 @@ function todoReducer(state, action) {
 	}
 }
 
-window.reduxStore = Redux.createStore(todoReducer);
+reduxStore = Redux.createStore(todoReducer);
+reduxStore.subscribe(
+	function logStore() {
+		console.log(reduxStore.getState());
+	}
+);
 
-reduxStore.subscribe(function logStore() {
-			console.log(reduxStore.getState());
-		}
-	);
+export default reduxStore;

@@ -1,5 +1,5 @@
-var ConnectedForm,
-	ConnectedList;
+import { connect } from 'react-redux';
+import { TodoForm, TodoList } from './presentational';
 
 function mapStateToProps_todoList(state) {
 	return {
@@ -25,12 +25,12 @@ function mapDispatchToProps_todoForm(dispatch) {
 	}
 }
 
-ConnectedForm = ReactRedux.connect(
+export let ConnectedForm = connect(
 	null,
 	mapDispatchToProps_todoForm
 )(TodoForm);
 
-ConnectedList = ReactRedux.connect(
+export let ConnectedList = connect(
 	mapStateToProps_todoList,
 	mapDispatchToProps_todoList
 )(TodoList);
